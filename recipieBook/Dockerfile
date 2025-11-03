@@ -48,9 +48,9 @@ RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
     bundle exec bootsnap precompile --gemfile
 
-# Install node modules
-COPY package.json yarn.lock ./
-RUN yarn install --immutable
+# Install node modules (commented out - using importmap instead)
+# COPY package.json yarn.lock ./
+# RUN yarn install --immutable
 
 # Copy application code
 COPY . .
@@ -62,7 +62,7 @@ RUN bundle exec bootsnap precompile app/ lib/
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 
-RUN rm -rf node_modules
+# RUN rm -rf node_modules
 
 
 # Final stage for app image
